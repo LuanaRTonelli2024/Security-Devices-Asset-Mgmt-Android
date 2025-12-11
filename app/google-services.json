@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "391518626963",
+    "firebase_url": "https://securitydevassetsmgt-default-rtdb.firebaseio.com",
+    "project_id": "securitydevassetsmgt",
+    "storage_bucket": "securitydevassetsmgt.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:391518626963:android:0ba24e45fdbb664b331966",
+        "android_client_info": {
+          "package_name": "com.example.securitydevicesassetmgmtandroid"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtfgI_uROwNxuhiTKvq3efSa5G6qo8_j0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:391518626963:android:03836b380dc886de331966",
+        "android_client_info": {
+          "package_name": "com.example.securitydevicesassetsmanagement"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtfgI_uROwNxuhiTKvq3efSa5G6qo8_j0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
