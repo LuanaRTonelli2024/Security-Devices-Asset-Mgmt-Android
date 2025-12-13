@@ -40,23 +40,31 @@ public class LoginActivity extends AppCompatActivity {
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
 
-            if(email.isEmpty() || password.isEmpty()){
+            if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "Please fill all fields!", Toast.LENGTH_LONG).show();
                 return;
             }
 
             AuthFirebase fAuth = new AuthFirebase();
             fAuth.signInUser(email, password, LoginActivity.this, result -> {
-                if(result){
-                    String userId = fAuth.getCurrentUser().getUid();
-                    Intent intent = new Intent(LoginActivity.this, CompanyActivity.class);
-                    intent.putExtra("USER_ID", userId);
-                    startActivity(intent);
+                if (result) {
+                    fAuth.getIdToken(token -> {
+                        if (token != null) {
+                            String bearerToken = "Bearer " + token;
+
+                            Intent intent = new Intent(LoginActivity.this, CompanyActivity.class);
+                            intent.putExtra("TOKEN", "Bearer " + token);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Failed to get ID Token", Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             });
         });
 
-        btnSignUp.setOnClickListener(v -> {
+
+            btnSignUp.setOnClickListener(v -> {
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
 

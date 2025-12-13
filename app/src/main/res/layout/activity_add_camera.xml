@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9FAFB"
+    tools:context=".AddCameraActivity">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/card_background"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Header -->
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/add_camera_header"
+            android:textColor="#111827"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium" />
+
+        <!-- Campos de entrada -->
+        <EditText
+            android:id="@+id/et_add_camera_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/camera_name"
+            android:inputType="text"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:autofillHints="name" />
+
+        <EditText
+            android:id="@+id/et_add_camera_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/camera_location"
+            android:inputType="text"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:autofillHints="postalAddress" />
+
+        <EditText
+            android:id="@+id/et_add_camera_ipAdress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/ip_address"
+            android:inputType="text|textNoSuggestions"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:autofillHints="emailAddress" />
+
+        <EditText
+            android:id="@+id/et_add_camera_subnetMask"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/subnet_mask"
+            android:inputType="text"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/et_add_camera_defaultGateway"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/default_gateway"
+            android:inputType="text"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp" />
+
+        <EditText
+            android:id="@+id/et_add_camera_userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/camera_username"
+            android:inputType="text"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:autofillHints="username" />
+
+        <EditText
+            android:id="@+id/et_add_camera_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/camera_password"
+            android:inputType="textPassword"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:autofillHints="password" />
+
+        <!-- Botão adicionar câmera -->
+        <Button
+            android:id="@+id/btn_add_new_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:text="@string/add_camera"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-medium" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
