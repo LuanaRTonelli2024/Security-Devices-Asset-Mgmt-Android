@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F9FAFB"
-    tools:context=".CompanyActivity">
+    tools:context=".AddCompanyActivity">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -21,38 +21,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- Header -->
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/select_company"
+            android:layout_marginBottom="16dp"
+            android:text="@string/add_company_header"
             android:textColor="#111827"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginBottom="12dp" />
+            android:fontFamily="sans-serif-medium" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_companies"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginBottom="16dp"
-            android:clipToPadding="false"
-            android:padding="4dp"
-            android:scrollbars="vertical" />
-
-        <Button
-            android:id="@+id/btn_add_company"
+        <EditText
+            android:id="@+id/et_add_company_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#233ABA"
-            android:text="@string/new_company"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:hint="@string/company_name"
+            android:inputType="text"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:autofillHints="companyName" />
+
+        <Button
+            android:id="@+id/btn_add_new_company"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_background"
+            android:text="@string/add_new_company"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginTop="8dp" />
+            android:fontFamily="sans-serif-medium" />
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
