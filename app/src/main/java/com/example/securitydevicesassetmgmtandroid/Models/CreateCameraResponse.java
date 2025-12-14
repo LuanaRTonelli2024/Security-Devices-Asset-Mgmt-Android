@@ -1,30 +1,16 @@
 package com.example.securitydevicesassetmgmtandroid.Models;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.UUID;
-
-public class Camera {
-    @SerializedName("_id")
-    private String id;
+public class CreateCameraResponse {
     private String name;
     private String location;
-    //private double latitude;
-    //private double longitude;
-    //private String model;
-    //private String serialNumber;
-    //private String warranty;
     private String ipAddress;
     private String subnetMask;
     private String defaultGateway;
-    //private String hostname;
     private String userName;
     private String password;
-    //private String switchName;
-    //private String switchPort;
     private String companyId;
 
-    public Camera(String name, String location, String ipAddress, String subnetMask, String defaultGateway, String userName, String password,String companyId) {
+    public CreateCameraResponse(String name, String location, String ipAddress, String subnetMask, String defaultGateway, String userName, String password, String companyId) {
         this.name = name;
         this.location = location;
         this.ipAddress = ipAddress;
@@ -35,14 +21,7 @@ public class Camera {
         this.companyId = companyId;
     }
 
-    public Camera() {}
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public CreateCameraResponse() {
     }
 
     public String getName() {
