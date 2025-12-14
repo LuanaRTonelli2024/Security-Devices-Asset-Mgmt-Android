@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,15 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.securitydevicesassetmgmtandroid.CameraActivity;
 import com.example.securitydevicesassetmgmtandroid.Models.Company;
 import com.example.securitydevicesassetmgmtandroid.R;
-import com.example.securitydevicesassetmgmtandroid.Services.ApiService;
-import com.example.securitydevicesassetmgmtandroid.Services.RetrofitClient;
 
-import java.util.Calendar;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyViewHolder>{
 

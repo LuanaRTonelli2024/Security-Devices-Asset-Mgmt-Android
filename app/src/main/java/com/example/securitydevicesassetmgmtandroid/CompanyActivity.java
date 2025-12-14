@@ -2,6 +2,7 @@ package com.example.securitydevicesassetmgmtandroid;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.example.securitydevicesassetmgmtandroid.Models.Company;
 import com.example.securitydevicesassetmgmtandroid.Models.CompanyResponse;
 import com.example.securitydevicesassetmgmtandroid.Services.ApiService;
 import com.example.securitydevicesassetmgmtandroid.Services.RetrofitClient;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -43,6 +45,8 @@ public class CompanyActivity extends AppCompatActivity {
 
         token = getIntent().getStringExtra("TOKEN");
 
+        Log.d("CompanyActivity", "Received token: " + token);
+
         btnAddCompany = findViewById(R.id.btn_add_company);
         btnAddCompany.setOnClickListener(v -> {
             Intent intent = new Intent(CompanyActivity.this, AddCompanyActivity.class);
@@ -57,28 +61,53 @@ public class CompanyActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadCompanies();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            FirebaseAuth.getInstance().getCurrentUser().getIdToken(true)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            token = task.getResult().getToken();
+                            Log.d("CompanyActivity", "Fresh token: " + token);
+                            loadCompanies();
+                        } else {
+                            Toast.makeText(this, "Error refreshing token!", Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }
     }
 
     public void loadCompanies() {
+        Log.d("CompanyActivity", "Calling getCompanies with token: Bearer " + token);
+
         RetrofitClient.getInstance()
                 .create(ApiService.class)
-                .getCompanies(token)
+                .getCompanies("Bearer " + token)
                 .enqueue(new Callback<CompanyResponse>() {
                     @Override
                     public void onResponse(Call<CompanyResponse> call, Response<CompanyResponse> response) {
+                        Log.d("CompanyActivity", "Response code: " + response.code());
+
                         if (response.isSuccessful() && response.body() != null) {
                             List<Company> allCompanies = response.body().getCompanies();
                             rvCompanies.setAdapter(new CompanyAdapter(allCompanies, token));
+                            Toast.makeText(CompanyActivity.this, "Companies loaded successfully!", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(CompanyActivity.this, "Error on fetching companies!", Toast.LENGTH_LONG).show();
+
+                            // 👉 Evite usar .string() aqui (pode travar a UI)
+                            if (response.errorBody() != null) {
+                                Log.e("CompanyActivity", "Error body: " + response.errorBody().toString());
+                            }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<CompanyResponse> call, Throwable t) {
-                        Toast.makeText(CompanyActivity.this, "Error on fetching companies!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(CompanyActivity.this, "Connection error while fetching companies!", Toast.LENGTH_LONG).show();
+                        Log.e("CompanyActivity", "Failure: " + t.getMessage(), t);
                     }
                 });
     }
+
+
+
 }
