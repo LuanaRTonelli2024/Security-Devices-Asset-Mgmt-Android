@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Security Devices</string>
-    <!-- LoginActivity -->
+
     <string name="security_devices">Security Devices</string>
     <string name="assets_management">Assets Management</string>
     <string name="user_id">User ID</string>
@@ -11,14 +11,11 @@
     <string name="login">Login</string>
     <string name="sign_up">Sign Up</string>
 
-    <!-- QRCodeActivity -->
     <string name="qr_code">QR Code</string>
 
-    <!-- CompanyActivity -->
     <string name="select_company">Select a company:</string>
     <string name="new_company">New Company</string>
 
-    <!-- CameraDetailActivity -->
     <string name="camera_informations">Camera Informations:</string>
     <string name="name">Name:</string>
     <string name="camera_name">Camera Name</string>
@@ -44,7 +41,6 @@
     <string name="company_name">Company Name</string>
     <string name="add_new_company">Add New Company</string>
 
-    <!-- AddCameraActivity -->
     <string name="add_camera_header">Complete all fields to add a new camera:</string>
     <string name="add_camera">Add Camera</string>
 
