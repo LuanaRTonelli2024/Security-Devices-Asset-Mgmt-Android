@@ -52,7 +52,7 @@ public class AddCompanyActivity extends AppCompatActivity {
             CreateCompanyRequest company = new CreateCompanyRequest(name);
 
             RetrofitClient.getInstance().create(ApiService.class)
-                    .addCompany(token, company)
+                    .addCompany("Bearer " + token, company)
                     .enqueue(new Callback<CreateCompanyResponse>() {
                         @Override
                         public void onResponse(Call<CreateCompanyResponse> call, Response<CreateCompanyResponse> response) {
