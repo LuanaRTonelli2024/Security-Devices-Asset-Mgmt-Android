@@ -21,7 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Header -->
         <TextView
             android:id="@+id/textViewInfo"
             android:layout_width="match_parent"
@@ -33,7 +32,6 @@
             android:textStyle="bold"
             android:fontFamily="sans-serif-medium" />
 
-        <!-- Name -->
         <TextView
             android:id="@+id/textViewName"
             android:layout_width="match_parent"
@@ -67,7 +65,6 @@
             android:background="@drawable/edittext_background"
             android:padding="12dp" />
 
-        <!-- Location -->
         <TextView
             android:id="@+id/textViewLocation"
             android:layout_width="match_parent"
@@ -101,7 +98,6 @@
             android:background="@drawable/edittext_background"
             android:padding="12dp" />
 
-        <!-- IP Address -->
         <TextView
             android:id="@+id/textViewIPAddress"
             android:layout_width="match_parent"
@@ -135,7 +131,6 @@
             android:background="@drawable/edittext_background"
             android:padding="12dp" />
 
-        <!-- Subnet Mask -->
         <TextView
             android:id="@+id/textViewSubnetMask"
             android:layout_width="match_parent"
@@ -169,7 +164,6 @@
             android:background="@drawable/edittext_background"
             android:padding="12dp" />
 
-        <!-- Default Gateway -->
         <TextView
             android:id="@+id/textViewDefaultGateway"
             android:layout_width="match_parent"
@@ -203,7 +197,6 @@
             android:background="@drawable/edittext_background"
             android:padding="12dp" />
 
-        <!-- Username -->
         <TextView
             android:id="@+id/textViewUserName"
             android:layout_width="match_parent"
@@ -237,7 +230,6 @@
             android:background="@drawable/edittext_background"
             android:padding="12dp" />
 
-        <!-- Password -->
         <TextView
             android:id="@+id/textViewPassword"
             android:layout_width="match_parent"
@@ -271,7 +263,6 @@
             android:background="@drawable/edittext_background"
             android:padding="12dp" />
 
-        <!-- Save button (hidden by default) -->
         <Button
             android:id="@+id/btn_save"
             android:layout_width="wrap_content"
@@ -283,7 +274,6 @@
             android:textSize="16sp"
             android:visibility="gone" />
 
-        <!-- Action buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

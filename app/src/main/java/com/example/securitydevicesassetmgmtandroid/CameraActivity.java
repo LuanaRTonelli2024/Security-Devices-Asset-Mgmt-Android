@@ -2,7 +2,7 @@ package com.example.securitydevicesassetmgmtandroid;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
@@ -40,6 +40,8 @@ public class CameraActivity extends AppCompatActivity {
     private RecyclerView rvCameras;
     private ImageButton btnSearchQRCode;
     private SearchView svSearchCamera;
+    private boolean showingFiltered = false;
+    private boolean isScanning = false;
 
 
     @Override
@@ -56,16 +58,14 @@ public class CameraActivity extends AppCompatActivity {
         token = getIntent().getStringExtra("TOKEN");
         companyId = getIntent().getStringExtra("COMPANY_ID");
 
-        Log.d("CameraActivity", "Token: " + token + " | CompanyId: " + companyId);
-
-
         rvCameras = findViewById(R.id.rv_cameras);
         rvCameras.setLayoutManager(new LinearLayoutManager(this));
 
         btnAddCamera = findViewById(R.id.btn_add_camera);
         btnSearchQRCode = findViewById(R.id.btn_search);
         btnShowAll = findViewById(R.id.btn_show_all);
-        svSearchCamera = findViewById(R.id.sv_search_camera);
+        btnShowAll.setEnabled(false);
+        //svSearchCamera = findViewById(R.id.sv_search_camera);
 
         btnAddCamera.setOnClickListener(v -> {
             Intent intent = new Intent(CameraActivity.this, AddCameraActivity.class);
@@ -74,13 +74,17 @@ public class CameraActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        btnShowAll.setEnabled(false);
+
         btnSearchQRCode.setOnClickListener(v -> {
+            isScanning = true;
             ScanOptions options = new ScanOptions();
             options.setDesiredBarcodeFormats(ScanOptions.QR_CODE);
             options.setPrompt("Scan a camera QR code");
             options.setCameraId(0);
             options.setBeepEnabled(true);
             options.setBarcodeImageEnabled(true);
+            options.setOrientationLocked(true);
             qrCodeLauncher.launch(options);
         });
     }
@@ -88,7 +92,9 @@ public class CameraActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        refreshTokenAndLoadCameras();
+        if (!showingFiltered && !isScanning) {
+            refreshTokenAndLoadCameras();
+        }
     }
 
     private void refreshTokenAndLoadCameras() {
@@ -97,7 +103,6 @@ public class CameraActivity extends AppCompatActivity {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             token = task.getResult().getToken();
-                            Log.d("CameraActivity", "Fresh Token: " + token + " | CompanyId: " + companyId);
                             loadCameras();
                         } else {
                             Toast.makeText(CameraActivity.this, "Error refreshing authentication token!", Toast.LENGTH_LONG).show();
@@ -110,30 +115,45 @@ public class CameraActivity extends AppCompatActivity {
             registerForActivityResult(new ScanContract(), result -> {
                 if (result.getContents() != null) {
                     String scannedCameraId = result.getContents();
-                    Log.d("CameraActivity", "QR Code scanned: " + scannedCameraId);
-
                     RetrofitClient.getInstance()
                             .create(ApiService.class)
                             .getCameraById("Bearer " + token, scannedCameraId)
                             .enqueue(new Callback<Camera>() {
                                 @Override
                                 public void onResponse(Call<Camera> call, Response<Camera> response) {
+                                    isScanning = false;
                                     if (response.isSuccessful() && response.body() != null) {
+                                        showingFiltered = true;
                                         List<Camera> resultList = new ArrayList<>();
                                         resultList.add(response.body());
                                         rvCameras.setAdapter(new CameraAdapter(resultList, token, CameraActivity.this));
                                         Toast.makeText(CameraActivity.this, "Camera found successfully!", Toast.LENGTH_SHORT).show();
+
+                                        showingFiltered = true;
+
+                                        btnShowAll.setVisibility(View.VISIBLE);
+                                        btnShowAll.setEnabled(true);
+                                        btnShowAll.setOnClickListener(v -> {
+                                            showingFiltered = false;
+                                            loadCameras();
+                                            btnShowAll.setVisibility(View.GONE);
+                                        });
                                     } else {
+                                        showingFiltered = false;
                                         Toast.makeText(CameraActivity.this, "Camera not found!", Toast.LENGTH_LONG).show();
                                     }
                                 }
 
                                 @Override
                                 public void onFailure(Call<Camera> call, Throwable t) {
+                                    isScanning = false;
+                                    showingFiltered = false;
                                     Toast.makeText(CameraActivity.this, "Connection error while fetching camera!", Toast.LENGTH_LONG).show();
                                 }
                             });
                 } else {
+                    isScanning = false;
+                    showingFiltered = false;
                     Toast.makeText(CameraActivity.this, "No QR code detected!", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -146,6 +166,7 @@ public class CameraActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<CameraResponse> call, Response<CameraResponse> response) {
                         if (response.isSuccessful() && response.body() != null) {
+                            if (showingFiltered) return;
                             List<Camera> allCameras = response.body().getCameras();
                             rvCameras.setAdapter(new CameraAdapter(allCameras, token, CameraActivity.this));
                         } else {

@@ -109,7 +109,6 @@
             android:padding="12dp"
             android:autofillHints="password" />
 
-        <!-- Botão adicionar câmera -->
         <Button
             android:id="@+id/btn_add_new_camera"
             android:layout_width="match_parent"

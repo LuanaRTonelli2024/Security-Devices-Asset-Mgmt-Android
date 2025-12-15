@@ -21,7 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Header -->
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"

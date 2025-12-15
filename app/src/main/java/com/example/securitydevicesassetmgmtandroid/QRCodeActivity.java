@@ -44,6 +44,4 @@ public class QRCodeActivity extends AppCompatActivity {
             return null;
         }
     }
-
-
 }

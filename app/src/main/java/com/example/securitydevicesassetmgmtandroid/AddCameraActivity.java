@@ -1,7 +1,6 @@
 package com.example.securitydevicesassetmgmtandroid;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -63,11 +62,10 @@ public class AddCameraActivity extends AppCompatActivity {
             FirebaseAuth.getInstance().getCurrentUser().getIdToken(true)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            token = task.getResult().getToken(); // token atualizado
-                            Log.d("AddCameraActivity", "Fresh Token: " + token + " | CompanyId: " + companyId);
-                            addCamera(); // só chama a API depois de renovar o token
+                            token = task.getResult().getToken();
+                            addCamera();
                         } else {
-                            Toast.makeText(AddCameraActivity.this, "Erro ao renovar token!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AddCameraActivity.this, "Error refreshing token!", Toast.LENGTH_LONG).show();
                         }
                     });
         }
