@@ -52,6 +52,14 @@ public interface ApiService {
             @Body CreateCameraRequest camera
     );
 
+    @GET("cameras/company/{company_id}/{camera_id}")
+    Call<Camera> getCameraByCompanyAndId(
+            @Header("Authorization") String token,
+            @Path("company_id") String companyId,
+            @Path("camera_id") String cameraId
+    );
+
+
     @GET("companies/{id}")
     Call<Company> getCompanyById(
             @Header("Authorization") String token,
@@ -63,7 +71,6 @@ public interface ApiService {
             @Header("Authorization") String token,
             @Path("id") String id
     );
-
 
     @PATCH("companies/{id}")
     Call<Void> updateCompany(

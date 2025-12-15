@@ -118,26 +118,32 @@ public class CameraActivity extends AppCompatActivity {
                     RetrofitClient.getInstance()
                             .create(ApiService.class)
                             .getCameraById("Bearer " + token, scannedCameraId)
+                            //.getCameraByCompanyAndId("Bearer " + token, companyId, scannedCameraId)
                             .enqueue(new Callback<Camera>() {
                                 @Override
                                 public void onResponse(Call<Camera> call, Response<Camera> response) {
                                     isScanning = false;
                                     if (response.isSuccessful() && response.body() != null) {
-                                        showingFiltered = true;
-                                        List<Camera> resultList = new ArrayList<>();
-                                        resultList.add(response.body());
-                                        rvCameras.setAdapter(new CameraAdapter(resultList, token, CameraActivity.this));
-                                        Toast.makeText(CameraActivity.this, "Camera found successfully!", Toast.LENGTH_SHORT).show();
+                                        Camera camera = response.body();
 
-                                        showingFiltered = true;
+                                        if (camera.getCompanyId().equals(companyId)) {
+                                            showingFiltered = true;
+                                            List<Camera> resultList = new ArrayList<>();
+                                            resultList.add(camera);
+                                            rvCameras.setAdapter(new CameraAdapter(resultList, token, CameraActivity.this));
+                                            Toast.makeText(CameraActivity.this, "Camera found successfully!", Toast.LENGTH_SHORT).show();
 
-                                        btnShowAll.setVisibility(View.VISIBLE);
-                                        btnShowAll.setEnabled(true);
-                                        btnShowAll.setOnClickListener(v -> {
-                                            showingFiltered = false;
-                                            loadCameras();
-                                            btnShowAll.setVisibility(View.GONE);
-                                        });
+                                            btnShowAll.setVisibility(View.VISIBLE);
+                                            btnShowAll.setEnabled(true);
+                                            btnShowAll.setOnClickListener(v -> {
+                                                showingFiltered = false;
+                                                loadCameras();
+                                                btnShowAll.setVisibility(View.GONE);
+                                            });
+                                        } else {
+                                            Toast.makeText(CameraActivity.this,
+                                                    "Camera does not belong to this company!", Toast.LENGTH_LONG).show();
+                                        }
                                     } else {
                                         showingFiltered = false;
                                         Toast.makeText(CameraActivity.this, "Camera not found!", Toast.LENGTH_LONG).show();
